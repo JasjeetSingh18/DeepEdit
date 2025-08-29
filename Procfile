@@ -1,1 +1,1 @@
-web: gunicorn app:app --host 0.0.0.0 --port $PORT
+echo "web: gunicorn -b 0.0.0.0:\$PORT app:app" > Procfile
