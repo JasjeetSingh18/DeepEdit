@@ -1,0 +1,87 @@
+
+            <!-- Upload & Edit -->
+            <li class="nav-item">
+              <a
+                class="nav-link {% if active_page == 'upload' %}active{% endif %}"
+                href="{{ url_for('upload') }}"
+              >
+                Upload & Edit
+              </a>
+            </li>
+          
+            <!-- My Gallery -->
+            <li class="nav-item">
+              <a
+                class="nav-link {% if active_page == 'gallery' %}active{% endif %}"
+                href="{{ url_for('gallery') }}"
+              >
+                My Gallery
+              </a>
+            </li>
+
+            <!-- Filters -->
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle {% if active_page == 'filters' %}active{% endif %}"
+                href="#"
+                id="filtersDropdown"
+                role="button"
+                data-bs-toggle="dropdown"
+              >
+                Filters & Effects
+              </a>
+              <ul class="dropdown-menu">
+                <li>
+                  <a
+                    class="dropdown-item"
+                    href="{{ url_for('filters', type='background') }}"
+                    >Background Tools</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="dropdown-item"
+                    href="{{ url_for('filters', type='style') }}"
+                    >AI Style Transfer</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="dropdown-item"
+                    href="{{ url_for('filters', type='color') }}"
+                    >Color & Lighting</a
+                  >
+                </li>
+              </ul>
+            </li>
+
+            <!-- About / Help -->
+            <li class="nav-item">
+              <a
+                class="nav-link {% if active_page == 'about' %}active{% endif %}"
+                href="{{ url_for('about') }}"
+              >
+                About
+              </a>
+            </li>
+          </ul>
+
+          <!-- User Section -->
+          <ul class="navbar-nav">
+            {% if current_user.is_authenticated %}
+            <li class="nav-item">
+              <a class="nav-link disabled">Hi, {{ current_user.username }}</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-danger" href="{{ url_for('logout') }}"
+                >Logout</a
+              >
+            </li>
+            {% else %}
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('login') }}">Login</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('register') }}">Sign Up</a>
+            </li>
+            {% endif %}

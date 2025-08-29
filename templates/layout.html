@@ -29,12 +29,12 @@
   </head>
 
   <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+    <nav class="navbar navbar-expand-lg bg-transparent shadow-lg">
       <div class="container-fluid">
-        <a class="navbar-brand fw-bold" href="/">DeepEdit</a>
+        <a class="navbar-brand fw-bold text-white" href="/">DeepEdit</a>
 
         <button
-          class="navbar-toggler"
+          class="navbar-toggler text-white-50"
           type="button"
           data-bs-toggle="collapse"
           data-bs-target="#navbarNavDropdown"
@@ -47,7 +47,7 @@
             <!-- Home -->
             <li class="nav-item">
               <a
-                class="nav-link {% if active_page == 'home' %}active{% endif %}"
+                class="nav-link text-white-50 {% if active_page == 'home' %}active{% endif %}"
                 href="{{ url_for('home') }}"
               >
                 Home
@@ -57,7 +57,7 @@
             <!-- Upload & Edit -->
             <li class="nav-item">
               <a
-                class="nav-link {% if active_page == 'upload' %}active{% endif %}"
+                class="nav-link text-white-50 {% if active_page == 'upload' %}active{% endif %}"
                 href="{{ url_for('upload') }}"
               >
                 Upload & Edit
@@ -67,53 +67,17 @@
             <!-- My Gallery -->
             <li class="nav-item">
               <a
-                class="nav-link {% if active_page == 'gallery' %}active{% endif %}"
+                class="nav-link text-white-50 {% if active_page == 'gallery' %}active{% endif %}"
                 href="{{ url_for('gallery') }}"
               >
                 My Gallery
               </a>
             </li>
 
-            <!-- Filters -->
-            <li class="nav-item dropdown">
-              <a
-                class="nav-link dropdown-toggle {% if active_page == 'filters' %}active{% endif %}"
-                href="#"
-                id="filtersDropdown"
-                role="button"
-                data-bs-toggle="dropdown"
-              >
-                Filters & Effects
-              </a>
-              <ul class="dropdown-menu">
-                <li>
-                  <a
-                    class="dropdown-item"
-                    href="{{ url_for('filters', type='background') }}"
-                    >Background Tools</a
-                  >
-                </li>
-                <li>
-                  <a
-                    class="dropdown-item"
-                    href="{{ url_for('filters', type='style') }}"
-                    >AI Style Transfer</a
-                  >
-                </li>
-                <li>
-                  <a
-                    class="dropdown-item"
-                    href="{{ url_for('filters', type='color') }}"
-                    >Color & Lighting</a
-                  >
-                </li>
-              </ul>
-            </li>
-
             <!-- About / Help -->
             <li class="nav-item">
               <a
-                class="nav-link {% if active_page == 'about' %}active{% endif %}"
+                class="nav-link text-white-50 {% if active_page == 'about' %}active{% endif %}"
                 href="{{ url_for('about') }}"
               >
                 About
@@ -123,23 +87,16 @@
 
           <!-- User Section -->
           <ul class="navbar-nav">
-            {% if current_user.is_authenticated %}
             <li class="nav-item">
-              <a class="nav-link disabled">Hi, {{ current_user.username }}</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link text-danger" href="{{ url_for('logout') }}"
-                >Logout</a
+              <a class="nav-link text-white-50" href="{{ url_for('login') }}"
+                >Login</a
               >
             </li>
-            {% else %}
             <li class="nav-item">
-              <a class="nav-link" href="{{ url_for('login') }}">Login</a>
+              <a class="nav-link text-white-50" href="{{ url_for('register') }}"
+                >Sign Up</a
+              >
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{{ url_for('register') }}">Sign Up</a>
-            </li>
-            {% endif %}
           </ul>
         </div>
       </div>
@@ -158,8 +115,8 @@
     </main>
 
     <footer class="text-center text-muted py-4 mt-5 border-top">
-      <p class="mb-1">&copy; {{ current_year }} PixAlchemy</p>
-      <small>Built with Flask &amp; Bootstrap</small>
+      <p class="mb-1 text-white-50">&copy; {{ current_year }} DeepEdit</p>
+      <small class="text-white-50">Built with Flask &amp; Bootstrap</small>
     </footer>
   </body>
 </html>

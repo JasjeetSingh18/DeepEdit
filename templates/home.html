@@ -1,0 +1,36 @@
+{% extends "layout.html" %} {% block title %} Home {% endblock %} {% block main
+%}
+<div class="container">
+  <h1 class="display-4 text-white">Welcome to DeepEdit</h1>
+  <p class="lead text-white-50">Your AI-powered photo editing tool.</p>
+
+  <!--Add a demo video for the user-->
+  <div class="row justify-content-center">
+    <div class="col-lg-8" style="padding-top: 30px">
+      <div class="ratio ratio-16x9 mb-4">
+        <video class="rounded shadow" autoplay loop muted>
+          <source
+            src="{{ url_for('static', filename='videos/PhotoFilter.mp4') }}"
+            type="video/mp4"
+          />
+          Your browser does not support the video tag.
+        </video>
+      </div>
+    </div>
+  </div>
+
+  <div class="text-center">
+    <a
+      href="{{ url_for('upload') }}"
+      class="btn btn-outline-light btn-lg"
+      style="
+        margin-top: 20px;
+        box-shadow: 0 0 20px rgba(13, 110, 253, 0.6);
+        transition: box-shadow 0.3s ease;
+        animation: pulse 2s infinite;
+      "
+      >Edit Your Photos</a
+    >
+  </div>
+</div>
+{% endblock %}

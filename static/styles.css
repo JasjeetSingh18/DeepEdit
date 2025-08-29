@@ -16,3 +16,29 @@ nav .navbar-brand .yellow {
 nav .navbar-brand .green {
   color: #2e944b;
 }
+
+body,
+html {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(
+    135deg,
+    #0f0f23 0%,
+    /* Deep navy */ #1a1a2e 25%,
+    /* Dark purple-blue */ #16213e 50%,
+    /* Midnight blue */ #0f3460 75%,
+    /* Steel blue */ #533483 100% /* Deep purple */
+  );
+  background-attachment: fixed;
+}
+
+html {
+  overflow: -moz-scrollbars-none; /* Firefox */
+  scrollbar-width: none; /* Firefox */
+}
+
+html::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}
