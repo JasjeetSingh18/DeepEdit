@@ -42,3 +42,58 @@ html::-webkit-scrollbar {
   width: 0px;
   background: transparent;
 }
+
+/*Style for upload photo */
+.glass-container {
+  background: rgba(188, 181, 181, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: transform 0.3s ease;
+}
+
+.glass-container:hover {
+  transform: translateY(-5px);
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.file-upload-area {
+  border: 3px dashed #dee2e6;
+  border-radius: 15px;
+  background: #f8f9fa;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  position: relative;
+}
+
+.file-upload-area:hover {
+  border-color: #4facfe;
+  background: #e3f2fd;
+  transform: scale(1.02);
+}
+
+.upload-icon {
+  font-size: 3rem;
+  opacity: 0.5;
+  color: #6c757d;
+}
+
+.btn-gradient {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+}
+
+.btn-gradient:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 15px 30px rgba(102, 126, 234, 0.4);
+  background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%);
+}

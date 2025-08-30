@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask, flash, redirect, render_template, request, session
+from flask import Flask, flash, redirect, render_template, request, session, url_for
 from flask_session import Session
 from werkzeug.security import check_password_hash, generate_password_hash
 
@@ -23,10 +23,33 @@ def home():
     """Show home screen"""
     return render_template("home.html")
 
-@app.route("/upload_edit")
+@app.route("/upload", methods=["GET", "POST"])
 def upload():
     """Show Option for anyone to upload edit and download photos"""
-    return render_template("error.html")
+    if request.method == "POST":
+        # Handle file upload and editing here
+        if 'userPhoto' not in request.files:
+            flash("File not supported")
+            return redirect(request.url)
+
+        file = request.files["userPhoto"]
+        if file:
+            # Save the file and perform editing
+            flash("File uploaded successfully!")
+            return redirect(url_for("edit"))
+        else:
+            flash("No file selected.")
+    else:
+        return render_template("upload.html")
+    
+@app.route("/edit", methods=["GET", "POST"])
+def edit():
+    """Show Option for anyone to edit and download photos"""
+    if request.method == "POST":
+        # Handle file editing here
+        pass
+    else:
+        return render_template("edit.html")
 
 @app.route("/gallery")
 def gallery():
