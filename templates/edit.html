@@ -1,4 +1,110 @@
-{% extends "layout.html" %} {% block title %} Home {% endblock %} {% block main
+{% extends "layout.html" %} {% block title %} Edit {% endblock %} {% block main
 %}
-<p class="lead text-white-50">Edit your photo</p>
+<div class="container glass-container py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8 text-center">
+      <h1 class="display-4 gradient-text mb-3">Edit Your Photo</h1>
+      <p class="lead text-muted mb-4 text-white-50">
+        Use the tools below to enhance your photo. Click and drag to select crop
+        area.
+      </p>
+
+      <div
+        class="mb-4"
+        style="position: relative; display: inline-block"
+        id="photo-container"
+      >
+        <img
+          src="{{ url_for('static', filename='uploads/' + fileName) }}"
+          alt="Uploaded Photo"
+          class="img-fluid rounded shadow"
+          id="photo"
+        />
+        <div id="cropArea"></div>
+        <div class="crop-overlay" id="cropOverlay"></div>
+      </div>
+
+      <!-- Normal editing buttons -->
+      <div id="normalButtons" class="d-flex justify-content-center mb-4 gap-2">
+        <button class="btn btn-primary me-2">Apply Filter</button>
+        <button class="btn btn-primary me-2">Adjust Brightness</button>
+        <button class="btn btn-primary me-2" onclick="startCropMode()">
+          Crop
+        </button>
+        <button
+          class="btn btn-success"
+          onclick="downloadPhoto('{{ fileName }}')"
+        >
+          Download
+        </button>
+        <button
+          class="btn me-2"
+          style="color: white; background-color: red; margin-left: 8px"
+          onclick="RevertImage()"
+        >
+          Revert
+        </button>
+      </div>
+
+      <!-- Crop mode buttons (hidden by default) -->
+      <div id="cropButtons" class="justify-content-center mb-4 gap-2 hidden">
+        <button class="btn btn-success me-2" onclick="finishCrop()">
+          Finish Crop
+        </button>
+        <button class="btn btn-secondary me-2" onclick="cancelCrop()">
+          Cancel
+        </button>
+      </div>
+
+      <!-- Status message div -->
+      <div id="status" class="text-white-50 mt-3"></div>
+    </div>
+  </div>
+</div>
+
+<style>
+  #photo {
+    max-width: 500px;
+    cursor: default;
+    user-select: none;
+  }
+
+  #photo.crop-mode {
+    cursor: crosshair;
+  }
+
+  #cropArea {
+    position: absolute;
+    border: 2px dashed #fff;
+    background: rgba(255, 255, 255, 0.1);
+    z-index: 9999;
+    display: none;
+    pointer-events: none;
+  }
+
+  #photo-container {
+    user-select: none;
+  }
+
+  .crop-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    pointer-events: none;
+  }
+
+  .hidden {
+    display: none !important;
+  }
+
+  .show-flex {
+    display: flex !important;
+  }
+</style>
+
+<script src="/static/JavaScript/edit.js"></script>
 {% endblock %}

@@ -35,8 +35,9 @@ def upload():
         file = request.files["userPhoto"]
         if file:
             # Save the file and perform editing
-            flash("File uploaded successfully!")
-            return redirect(url_for("edit"))
+            filepath = os.path.join("static/uploads", file.filename)
+            file.save(filepath)
+            return redirect(url_for("edit", fileName=file.filename))
         else:
             flash("No file selected.")
     else:
@@ -45,11 +46,12 @@ def upload():
 @app.route("/edit", methods=["GET", "POST"])
 def edit():
     """Show Option for anyone to edit and download photos"""
+    fileName = request.args.get("fileName")
     if request.method == "POST":
         # Handle file editing here
         pass
     else:
-        return render_template("edit.html")
+        return render_template("edit.html", fileName=fileName)
 
 @app.route("/gallery")
 def gallery():
