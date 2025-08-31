@@ -1,0 +1,160 @@
+{
+    "filters": [
+        {
+            "name": "_1977",
+            "image": "filters/_1977.png"
+        }, 
+        {
+            "name": "aden",
+            "image": "filters/aden.png"
+        },
+        {
+            "name": "ashby",
+            "image": "filters/ashby.png"
+        },
+        {
+            "name": "amaro",
+            "image": "filters/amaro.png"
+        },
+        {
+            "name": "brannan",
+            "image": "filters/brannan.png"
+        },
+        {
+            "name": "brooklyn",
+            "image": "filters/brooklyn.png"
+        },
+        {
+            "name": "clarendon",
+            "image": "filters/clarendon.png"
+        },
+        {
+            "name": "crema",
+            "image": "filters/crema.png"
+        },
+        {
+            "name": "dogpatch",
+            "image": "filters/dogpatch.png"
+        },
+        {
+            "name": "earlybird",
+            "image": "filters/earlybird.png"
+        },
+        {
+            "name": "gingham",
+            "image": "filters/gingham.png"
+        },
+        {
+            "name": "ginza",
+            "image": "filters/ginza.png"
+        },
+        {
+            "name": "hefe",
+            "image": "filters/hefe.png"
+        },
+        {
+            "name": "helena",
+            "image": "filters/helena.png"
+        },
+        {
+            "name": "hudson",
+            "image": "filters/hudson.png"
+        },
+        {
+            "name": "inkwell",
+            "image": "filters/inkwell.png"
+        },
+        {
+            "name": "juno",
+            "image": "filters/juno.png"
+        },
+        {
+            "name": "kelvin",
+            "image": "filters/kelvin.png"
+        },
+        {
+            "name": "lark",
+            "image": "filters/lark.png"
+        },
+        {
+            "name": "lofi",
+            "image": "filters/lofi.png"
+        },
+        {
+            "name": "ludwig",
+            "image": "filters/ludwig.png"
+        },
+        {
+            "name": "maven",
+            "image": "filters/maven.png"
+        },
+        {
+            "name": "mayfair",
+            "image": "filters/mayfair.png"
+        },
+        {
+            "name": "moon",
+            "image": "filters/moon.png"
+        },
+        {
+            "name": "nashville",
+            "image": "filters/nashville.png"
+        },
+        {
+            "name": "perpetua",
+            "image": "filters/perpetua.png"
+        },
+        {
+            "name": "poprocket",
+            "image": "filters/poprocket.png"
+        },
+        {
+            "name": "reyes",
+            "image": "filters/reyes.png"
+        },
+        {
+            "name": "rise",
+            "image": "filters/rise.png"
+        },
+        {
+            "name": "sierra",
+            "image": "filters/sierra.png"
+        },
+        {
+            "name": "skyline",
+            "image": "filters/skyline.png"
+        },
+        {
+            "name": "slumber",
+            "image": "filters/slumber.png"
+        },
+        {
+            "name": "stinson",
+            "image": "filters/stinson.png"
+        },
+        {
+            "name": "sutro",
+            "image": "filters/sutro.png"
+        },
+        {
+            "name": "toaster",
+            "image": "filters/toaster.png"
+        },
+        {
+            "name": "valencia",
+            "image": "filters/valencia.png"
+        },
+        {
+            "name": "walden",
+            "image": "filters/walden.png"
+        },
+        {
+            "name": "willow",
+            "image": "filters/willow.png"
+        },
+        {
+            "name": "xpro2",
+            "image": "filters/xpro2.png"
+        }
+    ]
+}

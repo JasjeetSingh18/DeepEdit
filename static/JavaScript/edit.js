@@ -191,8 +191,139 @@ if (photo.complete && photo.naturalWidth > 0) {
 }
 
 function RevertImage() {
-  if (originalImageSrc) {
-    photo.src = originalImageSrc;
-    updateStatus("Reverted to original image.");
+  photo.src = originalImageUrl;
+  updateStatus("Reverted to original image.");
+}
+
+function adjustBrightness() {
+  normalButtons.classList.add("hidden");
+  brightnessButtons.classList.remove("hidden");
+  originalImageSrc = photo.src;
+
+  if (brightness !== null) {
+    photo.style.filter = `brightness(${brightness}%)`;
+    updateStatus(`Brightness adjusted to ${brightness}%.`);
+  }
+}
+
+function updateBrightness(value) {
+  brightness = value;
+  photo.style.filter = `brightness(${brightness}%)`;
+}
+
+function applyBrightness() {
+  const canvas = document.createElement("canvas");
+  const ctx = canvas.getContext("2d");
+
+  canvas.width = photo.naturalWidth;
+  canvas.height = photo.naturalHeight;
+
+  ctx.filter = `brightness(${brightness}%)`;
+
+  ctx.drawImage(photo, 0, 0);
+
+  photo.src = canvas.toDataURL("image/png");
+
+  photo.style.filter = "";
+
+  normalButtons.classList.remove("hidden");
+  brightnessButtons.classList.add("hidden");
+
+  updateStatus(`Brightness applied: ${brightness}%.`);
+}
+
+function cancelBrightness() {
+  brightness = 100;
+  photo.style.filter = `brightness(${brightness}%)`;
+  normalButtons.classList.remove("hidden");
+  brightnessButtons.classList.add("hidden");
+  updateStatus("Brightness adjustment canceled.");
+}
+
+function applyFilter() {
+  originalImageSrc = photo.src;
+  normalButtons.classList.add("hidden");
+  filterOptions.classList.remove("hidden");
+}
+
+function applyPilgramFilter(filterName) {
+  updateStatus("Applying filter...");
+
+  fetch("/apply_filter", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      filter_name: filterName,
+      file_name: fileName, // Your current file name
+    }),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.success) {
+        // Update the image source with the filtered version
+        photo.src = baseUploadsUrl + data.filtered_image;
+        updateStatus(`${filterName} filter applied successfully!`);
+      } else {
+        updateStatus(`Error: ${data.error}`);
+      }
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+      updateStatus("Error applying filter");
+    });
+}
+
+function previewFilter(filterName) {
+  // For real-time preview when hovering over filter options
+  fetch("/preview_filter", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      filter_name: filterName,
+      file_name: fileName,
+    }),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.success) {
+        photo.src = baseUploadsUrl + data.preview_image;
+      }
+    });
+}
+
+function cancelFilter() {
+  photo.src = originalImageSrc;
+  document.getElementById("filterOptions").classList.add("hidden");
+  normalButtons.classList.remove("hidden");
+
+  const selectedFilter = document.querySelector('input[name="filter"]:checked');
+  if (selectedFilter) {
+    selectedFilter.checked = false;
+  }
+
+  updateStatus("Filter selection cancelled.");
+}
+
+function resetPreview() {
+  photo.src = originalImageSrc;
+}
+
+function completeFilter() {
+  document.getElementById("filterOptions").classList.add("hidden");
+  normalButtons.classList.remove("hidden");
+  updateStatus("Filter applied! Ready for more editing.");
+}
+
+function applySelectedFilter() {
+  const selectedFilter = document.querySelector('input[name="filter"]:checked');
+  if (selectedFilter) {
+    applyPilgramFilter(selectedFilter.value);
+    setTimeout(() => completeFilter(), 1000); // Auto-complete after applying
+  } else {
+    updateStatus("Please select a filter first!");
   }
 }

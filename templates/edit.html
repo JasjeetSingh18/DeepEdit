@@ -26,10 +26,15 @@
 
       <!-- Normal editing buttons -->
       <div id="normalButtons" class="d-flex justify-content-center mb-4 gap-2">
-        <button class="btn btn-primary me-2">Apply Filter</button>
-        <button class="btn btn-primary me-2">Adjust Brightness</button>
+        <button class="btn btn-primary me-2" onclick="applyFilter()">Apply Filter</button>
+        <button class="btn btn-primary me-2" onclick="adjustBrightness()">
+          Adjust Brightness
+        </button>
         <button class="btn btn-primary me-2" onclick="startCropMode()">
           Crop
+        </button>
+        <button class="btn btn-secondary me-2" disabled>
+          Enhance With AI
         </button>
         <button
           class="btn btn-success"
@@ -46,7 +51,7 @@
         </button>
       </div>
 
-      <!-- Crop mode buttons (hidden by default) -->
+      <!-- Crop mode buttons (hiddent) -->
       <div id="cropButtons" class="justify-content-center mb-4 gap-2 hidden">
         <button class="btn btn-success me-2" onclick="finishCrop()">
           Finish Crop
@@ -55,6 +60,59 @@
           Cancel
         </button>
       </div>
+
+      <!-- Brightness buttons (hidden)-->
+      <div
+        id="brightnessButtons"
+        class="justify-content-center mb-4 gap-2 hidden"
+      >
+      <input
+        type="range"
+        class="brightness-slider"
+        min="0"
+        max="100"
+        value="100"
+        step="1"
+        oninput="updateBrightness(this.value)"
+      ></input>
+      <div>
+        <button class="btn btn-success me-2" onclick="applyBrightness()">
+                Apply
+                </button>
+        <button class="btn btn-secondary me-2" onclick="cancelBrightness()">
+        Cancel
+        </button>
+      </div>
+      </div>
+
+      <!-- Filter options -->
+      <div id="filterOptions" class="mt-4 hidden">
+        <h5 class="text-white-50">Choose a Filter:</h5>
+        <div class="d-flex overflow-auto filter-scroll" style="white-space: nowrap;">
+            <form class="d-flex">
+            {% for filter in filters %}
+            <div class="filter-option me-3 flex-shrink-0 text-center" style="min-width: 100px;">
+                <label for="filter-{{ filter.name }}" class="cursor-pointer">
+                <img src="{{ url_for('static', filename=filter.image) }}" 
+                    alt="{{ filter.name }}" 
+                    class="img-fluid mb-1 filter-image" 
+                    style="width: 80px; height: 80px; object-fit: cover; border-radius: 8px;"
+                    onmouseenter="previewFilter('{{ filter.name }}', fileName)"
+                    onmouseleave="resetPreview()" />
+                <div>
+                    <p class="text-white small mb-1">{{ filter.name }}</p>
+                    <input type="radio" name="filter" value="{{ filter.name }}" id="filter-{{ filter.name }}" />
+                </div>
+                </label>
+            </div>
+            {% endfor %}
+            </form>
+        </div>
+        <div class="mt-3">
+            <button class="btn btn-success me-2" onclick="applySelectedFilter()">Apply Filter</button>
+            <button class="btn btn-secondary" onclick="cancelFilter()">Cancel</button>
+        </div>
+        </div>
 
       <!-- Status message div -->
       <div id="status" class="text-white-50 mt-3"></div>
@@ -104,7 +162,48 @@
   .show-flex {
     display: flex !important;
   }
+
+  .filter-scroll::-webkit-scrollbar {
+   height: 8px;
+ }
+ 
+ .filter-scroll::-webkit-scrollbar-track {
+   background: rgba(255, 255, 255, 0.1);
+   border-radius: 10px;
+ }
+ 
+ .filter-scroll::-webkit-scrollbar-thumb {
+   background: linear-gradient(45deg, #667eea, #764ba2);
+   border-radius: 10px;
+ }
+ 
+ .filter-scroll::-webkit-scrollbar-thumb:hover {
+   background: linear-gradient(45deg, #764ba2, #667eea);
+ }
+ 
+ /* Clickable cursor and hover effects */
+ .cursor-pointer {
+   cursor: pointer;
+ }
+ 
+ .filter-image:hover {
+   transform: scale(1.05);
+   transition: transform 0.2s ease;
+   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+ }
+ 
+ /* Selected filter styling */
+ input[type="radio"]:checked + .filter-image,
+ input[type="radio"]:checked ~ .filter-image {
+   border: 2px solid #667eea;
+   box-shadow: 0 0 10px rgba(102, 126, 234, 0.5);
+ }
 </style>
 
+<script>
+  const fileName = "{{ fileName }}";
+  const baseUploadsUrl = "{{ url_for('static', filename='uploads/') }}";
+  const originalImageUrl = "{{ url_for('static', filename='uploads/' + fileName) }}";
+</script>
 <script src="/static/JavaScript/edit.js"></script>
 {% endblock %}
