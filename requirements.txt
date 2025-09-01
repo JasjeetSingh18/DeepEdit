@@ -7,6 +7,5 @@ pillow>=4.1.0
 pilgram2
 NumPy
 opencv-python
-realesrgan
 super-image
 image-enhancement
