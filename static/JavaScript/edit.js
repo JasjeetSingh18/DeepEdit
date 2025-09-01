@@ -327,3 +327,29 @@ function applySelectedFilter() {
     updateStatus("Please select a filter first!");
   }
 }
+
+function enhanceWithAI() {
+  updateStatus("Enhancing image with AI...");
+  fetch("/enhance_image", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      file_name: fileName,
+    }),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.success) {
+        photo.src = baseUploadsUrl + data.enhanced_image;
+        updateStatus("Image enhanced successfully!");
+      } else {
+        updateStatus(`Error: ${data.error}`);
+      }
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+      updateStatus("Error enhancing image");
+    });
+}

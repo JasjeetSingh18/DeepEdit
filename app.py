@@ -3,10 +3,10 @@ import pilgram2
 import json
 import io
 
-from flask import Flask, flash, redirect, render_template, request, session, url_for, jsonify  # Add jsonify
+from flask import Flask, flash, redirect, render_template, request, session, url_for, jsonify
 from flask_session import Session
 from werkzeug.security import check_password_hash, generate_password_hash
-from PIL import Image
+from helpers import enhanceImage
 
 # Configure application
 app = Flask(__name__)
@@ -133,6 +133,29 @@ def preview_filter():
             'preview_image': preview_filename
         })
         
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/enhance_image', methods=['POST'])
+def enhance_image():
+    try:
+        file_name = request.json.get('file_name')
+        image_path = os.path.join(app.static_folder, 'uploads', file_name)
+        image = Image.open(image_path)
+
+        # Apply AI enhancement (dummy implementation)
+        enhanced_image = enhanceImage(image, method="realesrgan")
+
+        # Save enhanced image
+        enhanced_filename = f"enhanced_{file_name}"
+        enhanced_path = os.path.join(app.static_folder, 'uploads', enhanced_filename)
+        enhanced_image.save(enhanced_path)
+
+        return jsonify({
+            'success': True,
+            'enhanced_image': enhanced_filename
+        })
+
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
